@@ -1,38 +1,38 @@
 /* ==========================================================================
-   Lanka Toponyms — Warm Archival Cartographic Atlas Theme
+   Lanka Toponyms — Coastal Survey Cartographic Atlas Theme
    ========================================================================== */
 :root {
-  --sea-bg: #E5E0D3;
-  --land-fill: #FAF6EC;
-  --land-stroke: #C8BEA8;
-  --rail-bg: #FCFBF7;
+  --sea-bg: #DDE5E3;
+  --land-fill: #F7F4EA;
+  --land-stroke: #AAB4AE;
+  --rail-bg: #F6F5F0;
   --card-bg: #FFFFFF;
-  --surface-subtle: #F4EFE4;
-  --border: rgba(46, 42, 34, 0.12);
-  --border-strong: rgba(46, 42, 34, 0.22);
+  --surface-subtle: #EDEEEA;
+  --border: rgba(31, 41, 45, 0.13);
+  --border-strong: rgba(31, 41, 45, 0.24);
 
-  --ink: #1D221F;
-  --ink-soft: #4F5651;
-  --ink-muted: #7C827D;
+  --ink: #202B31;
+  --ink-soft: #4B595E;
+  --ink-muted: #7A8588;
 
-  --accent: #B54624;
-  /* Ceylon cinnamon / terracotta */
-  --accent-soft: #F9EAE4;
-  --accent-dark: #8C3318;
+  --accent: #355B73;
+  /* Survey blue */
+  --accent-soft: #E2E9ED;
+  --accent-dark: #244456;
 
-  --compare: #1B6B58;
-  /* Ceylon tea emerald / teal */
-  --compare-soft: #E3F2EE;
+  --compare: #64704B;
+  /* Field olive */
+  --compare-soft: #E7E9DD;
 
-  --both: #C48914;
+  --both: #A87824;
   /* Golden ochre */
-  --both-soft: #FBF2DD;
+  --both-soft: #F2E9D6;
 
-  --indigo: #2B4E7C;
-  --indigo-soft: #E7EFF8;
+  --indigo: #3B4F69;
+  --indigo-soft: #E5E9EE;
 
-  --shadow-sm: 0 2px 8px rgba(30, 26, 18, 0.07);
-  --shadow-md: 0 10px 28px rgba(30, 26, 18, 0.12), 0 2px 6px rgba(30, 26, 18, 0.06);
+  --shadow-sm: 0 2px 8px rgba(22, 34, 39, 0.07);
+  --shadow-md: 0 10px 28px rgba(22, 34, 39, 0.12), 0 2px 6px rgba(22, 34, 39, 0.06);
 
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -84,14 +84,14 @@ body {
   background: var(--rail-bg);
   border-right: 1px solid var(--border);
   z-index: 20;
-  box-shadow: 4px 0 20px rgba(30, 26, 18, 0.05);
+  box-shadow: 4px 0 20px rgba(22, 34, 39, 0.05);
   overflow: hidden;
 }
 
 .masthead {
   padding: 18px 18px 14px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, #FDFCF8 0%, #F9F5EB 100%);
+  background: linear-gradient(180deg, #FAF9F5 0%, #F1F2EE 100%);
 }
 
 .masthead-top {
@@ -185,7 +185,7 @@ body {
 
 #search-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(181, 70, 36, 0.12);
+  box-shadow: 0 0 0 3px rgba(53, 91, 115, 0.12);
 }
 
 #search-input::placeholder {
@@ -326,7 +326,7 @@ body {
 .tab.active {
   background: #fff;
   color: var(--ink);
-  box-shadow: 0 1px 4px rgba(30, 26, 18, 0.08);
+  box-shadow: 0 1px 4px rgba(22, 34, 39, 0.08);
 }
 
 .tab-count {
@@ -359,7 +359,7 @@ body {
 /* Compare Strip */
 .compare-strip {
   border-bottom: 1px solid var(--border);
-  background: #FAF7F0;
+  background: #EEF0EC;
   flex-shrink: 0;
 }
 
@@ -554,13 +554,13 @@ body {
 
 .root-card.active-a {
   border-color: var(--accent);
-  background: #FFF9F7;
+  background: #EDF2F4;
   box-shadow: 0 0 0 1px var(--accent), var(--shadow-sm);
 }
 
 .root-card.active-b {
   border-color: var(--compare);
-  background: #F4FBF9;
+  background: #EFF1E9;
   box-shadow: 0 0 0 1px var(--compare), var(--shadow-sm);
 }
 
@@ -676,7 +676,7 @@ body {
   gap: 8px;
   padding: 10px 12px 8px;
   border-bottom: 1px solid var(--border);
-  background: #FAF7F0;
+  background: #EEF0EC;
 }
 
 .select-compact {
@@ -751,7 +751,7 @@ body {
 }
 
 .place-row-name mark {
-  background: rgba(181, 70, 36, 0.16);
+  background: rgba(53, 91, 115, 0.16);
   color: var(--accent-dark);
   border-radius: 3px;
   padding: 0 2px;
@@ -759,7 +759,7 @@ body {
 }
 
 .place-row-name mark.mark-b {
-  background: rgba(27, 107, 88, 0.17);
+  background: rgba(100, 112, 75, 0.17);
   color: var(--compare);
 }
 
@@ -777,7 +777,7 @@ body {
   padding: 2px 6px;
   border-radius: 999px;
   background: var(--both-soft);
-  color: #8A5D06;
+  color: #76551F;
   flex-shrink: 0;
 }
 
@@ -922,8 +922,8 @@ body {
 }
 
 .provenance-card {
-  background: #FAF6EC;
-  border-color: rgba(181, 70, 36, 0.22);
+  background: #F7F4EA;
+  border-color: rgba(53, 91, 115, 0.22);
 }
 
 .small-muted {
@@ -1039,7 +1039,7 @@ body {
 }
 
 .banner-district-chip:hover {
-  background: #D6E4F5;
+  background: #DCE3EA;
 }
 
 .map-controls-bar {
@@ -1140,7 +1140,7 @@ body {
   pointer-events: none;
   z-index: 30;
   background: rgba(28, 33, 30, 0.95);
-  color: #FAF6EC;
+  color: #F7F4EA;
   padding: 7px 11px;
   border-radius: 9px;
   font-size: 12px;
@@ -1157,13 +1157,13 @@ body {
 
 .tt-sub {
   font-size: 11px;
-  color: #C9C3B6;
+  color: #B8C1C1;
   margin-top: 2px;
 }
 
 .tt-meaning {
   font-size: 11.2px;
-  color: #F3C39B;
+  color: #B9CEDA;
   margin-top: 3px;
   font-style: italic;
 }
@@ -1322,12 +1322,12 @@ body {
 
 .morpheme-block.kind-root-a {
   background: var(--accent-soft);
-  border-color: rgba(181, 70, 36, 0.35);
+  border-color: rgba(53, 91, 115, 0.35);
 }
 
 .morpheme-block.kind-root-b {
   background: var(--compare-soft);
-  border-color: rgba(27, 107, 88, 0.35);
+  border-color: rgba(100, 112, 75, 0.35);
 }
 
 .morpheme-block.kind-qual {
@@ -1336,7 +1336,7 @@ body {
 }
 
 .morpheme-block.kind-stem {
-  background: #F4F1EA;
+  background: #ECEDE8;
   border-style: dashed;
 }
 
@@ -1532,7 +1532,7 @@ body {
   font-size: 11.2px;
   font-weight: 600;
   background: var(--both-soft);
-  color: #7D5305;
+  color: #70501C;
   margin-bottom: 6px;
 }
 
@@ -1551,13 +1551,13 @@ body {
 }
 
 .cmp-box.a {
-  background: #FFF8F5;
-  border-color: rgba(181, 70, 36, 0.3);
+  background: #EDF2F4;
+  border-color: rgba(53, 91, 115, 0.30);
 }
 
 .cmp-box.b {
-  background: #F2FAF8;
-  border-color: rgba(27, 107, 88, 0.3);
+  background: #EFF1E9;
+  border-color: rgba(100, 112, 75, 0.30);
 }
 
 .cmp-box-title {
@@ -1654,21 +1654,41 @@ body {
 
 /* ---------- Responsive (Mobile / Narrow Viewport) ---------- */
 @media (max-width: 920px) {
+
+  html,
+  body {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .app-shell {
     grid-template-columns: 1fr;
-    grid-template-rows: 46vh 54vh;
+    grid-template-rows: auto auto;
+    height: auto;
+    width: 100%;
+    overflow: visible;
   }
 
   .sidebar {
     order: 2;
-    height: 54vh;
+    height: auto;
+    overflow: visible;
     border-right: none;
     border-top: 1px solid var(--border);
   }
 
+  .panel,
+  .roots-list,
+  .places-list,
+  .guide-content {
+    overflow: visible;
+  }
+
   .map-stage {
     order: 1;
-    height: 46vh;
+    height: 55vh;
+    min-height: 340px;
   }
 
   .inspector-card {
