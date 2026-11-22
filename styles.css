@@ -1186,6 +1186,9 @@ body {
   flex-direction: column;
   overflow: hidden;
   transition: transform 0.2s ease, max-height 0.2s ease;
+  /* .map-stage sets user-select:none for drag-to-pan; opt the card back in */
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .inspector-card.collapsed {

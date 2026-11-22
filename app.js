@@ -315,6 +315,18 @@
         }
 
         if (mx >= 0 && mx <= this.width && my >= 0 && my <= this.height) {
+          if (e.target !== this.canvas) {
+            // Pointer is over a floating overlay (inspector card, HUD, legend):
+            // don't hit-test the map points drawn beneath it.
+            this.canvas.classList.remove("pointer");
+            if (state.hoveredPlaceId !== null || state.hoveredDistrictIdx !== null) {
+              state.hoveredPlaceId = null;
+              state.hoveredDistrictIdx = null;
+              hideTooltip();
+              this.render();
+            }
+            return;
+          }
           this.handleHover(mx, my);
         }
       });
