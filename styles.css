@@ -15,14 +15,17 @@
   --ink-soft: #4F5651;
   --ink-muted: #7C827D;
 
-  --accent: #B54624;        /* Ceylon cinnamon / terracotta */
+  --accent: #B54624;
+  /* Ceylon cinnamon / terracotta */
   --accent-soft: #F9EAE4;
   --accent-dark: #8C3318;
 
-  --compare: #1B6B58;       /* Ceylon tea emerald / teal */
+  --compare: #1B6B58;
+  /* Ceylon tea emerald / teal */
   --compare-soft: #E3F2EE;
 
-  --both: #C48914;          /* Golden ochre */
+  --both: #C48914;
+  /* Golden ochre */
   --both-soft: #FBF2DD;
 
   --indigo: #2B4E7C;
@@ -41,11 +44,14 @@
   --radius-lg: 16px;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -352,15 +358,48 @@ html, body {
 
 /* Compare Strip */
 .compare-strip {
-  padding: 10px 14px 9px;
   border-bottom: 1px solid var(--border);
   background: #FAF7F0;
+  flex-shrink: 0;
+}
+
+.compare-strip-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.compare-strip-summary::-webkit-details-marker {
+  display: none;
+}
+
+.compare-strip-summary:hover .micro-label,
+.compare-strip-summary:hover .compare-chevron {
+  color: var(--ink);
+}
+
+.compare-chevron {
+  color: var(--ink-muted);
+  transition: transform 0.18s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.compare-strip[open] .compare-chevron {
+  transform: rotate(180deg);
+}
+
+.compare-strip-body {
+  padding: 0 14px 10px;
 }
 
 .compare-strip-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 7px;
 }
 
@@ -449,16 +488,11 @@ html, body {
 /* Category Filters */
 .cat-filters {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   padding: 9px 14px;
-  overflow-x: auto;
   border-bottom: 1px solid var(--border);
-  scrollbar-width: none;
   flex-shrink: 0;
-}
-
-.cat-filters::-webkit-scrollbar {
-  display: none;
 }
 
 .cat-chip {
@@ -627,8 +661,13 @@ html, body {
   color: #fff;
 }
 
-.root-slot-pill.slot-a { background: var(--accent); }
-.root-slot-pill.slot-b { background: var(--compare); }
+.root-slot-pill.slot-a {
+  background: var(--accent);
+}
+
+.root-slot-pill.slot-b {
+  background: var(--compare);
+}
 
 /* Places Panel */
 .places-toolbar {
@@ -853,10 +892,24 @@ html, body {
   opacity: 0.85;
 }
 
-.f-x { background: var(--indigo-soft); color: var(--indigo); }
-.f-y { background: var(--accent-soft); color: var(--accent-dark); }
-.f-plus { color: var(--ink-muted); font-weight: 700; }
-.f-eq { color: var(--ink-soft); }
+.f-x {
+  background: var(--indigo-soft);
+  color: var(--indigo);
+}
+
+.f-y {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+
+.f-plus {
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.f-eq {
+  color: var(--ink-soft);
+}
 
 .mirror-grid {
   display: grid;
@@ -949,8 +1002,13 @@ html, body {
   border-radius: 50%;
 }
 
-.banner-dot.a { background: var(--accent); }
-.banner-dot.b { background: var(--compare); }
+.banner-dot.a {
+  background: var(--accent);
+}
+
+.banner-dot.b {
+  background: var(--compare);
+}
 
 .banner-count {
   font-family: var(--font-mono);
@@ -1492,8 +1550,15 @@ html, body {
   border: 1px solid var(--border);
 }
 
-.cmp-box.a { background: #FFF8F5; border-color: rgba(181, 70, 36, 0.3); }
-.cmp-box.b { background: #F2FAF8; border-color: rgba(27, 107, 88, 0.3); }
+.cmp-box.a {
+  background: #FFF8F5;
+  border-color: rgba(181, 70, 36, 0.3);
+}
+
+.cmp-box.b {
+  background: #F2FAF8;
+  border-color: rgba(27, 107, 88, 0.3);
+}
 
 .cmp-box-title {
   font-family: var(--font-serif);
@@ -1501,8 +1566,13 @@ html, body {
   font-weight: 700;
 }
 
-.cmp-box.a .cmp-box-title { color: var(--accent-dark); }
-.cmp-box.b .cmp-box-title { color: var(--compare); }
+.cmp-box.a .cmp-box-title {
+  color: var(--accent-dark);
+}
+
+.cmp-box.b .cmp-box-title {
+  color: var(--compare);
+}
 
 .cmp-box-num {
   font-family: var(--font-mono);
@@ -1621,5 +1691,16 @@ html, body {
   .subtitle {
     margin: 4px 0 8px;
     font-size: 12px;
+  }
+
+  .cat-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cat-filters::-webkit-scrollbar {
+    display: none;
   }
 }

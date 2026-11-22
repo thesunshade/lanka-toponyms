@@ -1,241 +1,408 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lanka Toponyms — Interactive Atlas of Sri Lankan Place-Name Meanings</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Noto+Sans+Sinhala:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div id="app" class="app-shell">
-    <!-- Left Explorer Rail -->
-    <aside class="sidebar" id="sidebar">
-      <header class="masthead">
-        <div class="masthead-top">
-          <div>
-            <p class="eyebrow">ලංකා ස්ථාන නාම · இலங்கை இடப்பெயர்கள்</p>
-            <h1 class="site-title">Lanka Toponyms</h1>
-          </div>
-          <button id="btn-surprise" class="btn-icon-pill" title="Fly to an intriguing real place">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>Explore</span>
-          </button>
-        </div>
-        <p class="subtitle">Explore the linguistic roots behind <strong id="total-places-badge">10,171</strong> real Sri Lankan towns &amp; villages.</p>
-
-        <!-- Search & Instant Deconstructor -->
-        <div class="search-wrap">
-          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="search-input" type="text" autocomplete="off" placeholder="Search place or part… e.g. Bandarawela, Ratnapura, kulam" />
-          <button id="search-clear" class="search-clear hidden" aria-label="Clear search">&times;</button>
-          <div id="search-results" class="search-dropdown hidden"></div>
-        </div>
-      </header>
-
-      <!-- Navigation Tabs -->
-      <nav class="tabs" role="tablist">
-        <button class="tab active" data-tab="roots" role="tab" aria-selected="true">
-          Name Parts <span class="tab-count" id="tab-roots-count">43</span>
-        </button>
-        <button class="tab" data-tab="places" role="tab" aria-selected="false">
-          Places <span class="tab-count" id="tab-places-count">0</span>
-        </button>
-        <button class="tab" data-tab="guide" role="tab" aria-selected="false">
-          How Names Work
-        </button>
-      </nav>
-
-      <!-- TAB 1: ROOTS / NAME PARTS -->
-      <section class="panel active" id="panel-roots">
-        <!-- Quick Compare Presets -->
-        <div class="compare-strip">
-          <div class="compare-strip-header">
-            <span class="micro-label">Compare pairs on map</span>
-            <button id="btn-compare-toggle" class="compare-toggle" title="Overlay two name parts simultaneously">
-              <span class="dot-pair"><i class="d1"></i><i class="d2"></i></span>
-              <span id="compare-toggle-label">Compare: Off</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lanka Toponyms — Interactive Atlas of Sri Lankan Place-Name Meanings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Noto+Sans+Sinhala:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <!-- Left Explorer Rail -->
+      <aside class="sidebar" id="sidebar">
+        <header class="masthead">
+          <div class="masthead-top">
+            <div>
+              <p class="eyebrow">ලංකා ස්ථාන නාම · இலங்கை இடப்பெயர்கள்</p>
+              <h1 class="site-title">Lanka Toponyms</h1>
+            </div>
+            <button id="btn-surprise" class="btn-icon-pill" title="Fly to an intriguing real place">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+              <span>Explore</span>
             </button>
           </div>
-          <div class="preset-pills" id="preset-pills">
-            <button class="preset-pill" data-a="wewa" data-b="kulam">-wewa vs -kulam</button>
-            <button class="preset-pill" data-a="wela" data-b="wella">-wela vs -wella</button>
-            <button class="preset-pill" data-a="gama" data-b="ur">-gama vs -ur</button>
-            <button class="preset-pill" data-a="uda" data-b="palle">uda- vs palle-</button>
-            <button class="preset-pill" data-a="rat" data-b="kalu">rat- vs kalu-</button>
+          <p class="subtitle">
+            Explore the linguistic roots behind
+            <strong id="total-places-badge">10,171</strong>
+            real Sri Lankan towns &amp; villages.
+          </p>
+
+          <!-- Search & Instant Deconstructor -->
+          <div class="search-wrap">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input id="search-input" type="text" autocomplete="off" placeholder="Search place or part… e.g. Bandarawela, Ratnapura, kulam" />
+            <button id="search-clear" class="search-clear hidden" aria-label="Clear search">&times;</button>
+            <div id="search-results" class="search-dropdown hidden"></div>
           </div>
-        </div>
+        </header>
 
-        <!-- Category Filter Chips -->
-        <div class="cat-filters" id="cat-filters">
-          <button class="cat-chip active" data-cat="all">All</button>
-          <button class="cat-chip" data-cat="featured">Featured</button>
-          <button class="cat-chip" data-cat="land">Fields &amp; Land</button>
-          <button class="cat-chip" data-cat="water">Water &amp; Tanks</button>
-          <button class="cat-chip" data-cat="hills">Rocks &amp; Hills</button>
-          <button class="cat-chip" data-cat="settlements">Settlements</button>
-          <button class="cat-chip" data-cat="colors">Colors &amp; Gems</button>
-          <button class="cat-chip" data-cat="nature">Size &amp; Trees</button>
-        </div>
+        <!-- Navigation Tabs -->
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="roots" role="tab" aria-selected="true">
+            Name Parts
+            <span class="tab-count" id="tab-roots-count">43</span>
+          </button>
+          <button class="tab" data-tab="places" role="tab" aria-selected="false">
+            Places
+            <span class="tab-count" id="tab-places-count">0</span>
+          </button>
+          <button class="tab" data-tab="guide" role="tab" aria-selected="false">How Names Work</button>
+        </nav>
 
-        <!-- Roots List -->
-        <div class="roots-list" id="roots-list"></div>
-      </section>
-
-      <!-- TAB 2: PLACES DIRECTORY -->
-      <section class="panel" id="panel-places">
-        <div class="places-toolbar">
-          <select id="district-filter" class="select-compact" aria-label="Filter by district">
-            <option value="">All 25 Districts</option>
-          </select>
-          <select id="sort-places" class="select-compact" aria-label="Sort places">
-            <option value="notable">Notable first</option>
-            <option value="alpha">A → Z</option>
-            <option value="district">By District</option>
-            <option value="elev">Highest elevation</option>
-          </select>
-        </div>
-        <div class="places-summary" id="places-summary"></div>
-        <div class="places-list" id="places-list"></div>
-      </section>
-
-      <!-- TAB 3: HOW NAMES WORK / GUIDE -->
-      <section class="panel" id="panel-guide">
-        <div class="guide-content">
-          <div class="guide-card">
-            <h3>The <code>X + Y</code> Compound Pattern</h3>
-            <p>Most indigenous Sinhala and Tamil place names in Sri Lanka follow a transparent two-part recipe: a <strong>qualifier</strong> (a tree, animal, color, size, or founder) joined to a <strong>landform or settlement</strong>.</p>
-            <div class="formula-examples">
-              <div class="formula-row">
-                <span class="f-part f-x">Weli <small>sand</small></span>
-                <span class="f-plus">+</span>
-                <span class="f-part f-y">gama <small>village</small></span>
-                <span class="f-eq">= <strong>Weligama</strong></span>
+        <!-- TAB 1: ROOTS / NAME PARTS -->
+        <section class="panel active" id="panel-roots">
+          <!-- Quick Compare Presets (collapsed by default) -->
+          <details class="compare-strip" id="compare-strip">
+            <summary class="compare-strip-summary">
+              <span class="micro-label">Compare pairs on map</span>
+              <svg class="compare-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>
+            </summary>
+            <div class="compare-strip-body">
+              <div class="compare-strip-header">
+                <button id="btn-compare-toggle" class="compare-toggle" title="Overlay two name parts simultaneously">
+                  <span class="dot-pair">
+                    <i class="d1"></i>
+                    <i class="d2"></i>
+                  </span>
+                  <span id="compare-toggle-label">Compare: Off</span>
+                </button>
               </div>
-              <div class="formula-row">
-                <span class="f-part f-x">Bandara <small>chieftain</small></span>
-                <span class="f-plus">+</span>
-                <span class="f-part f-y">wela <small>paddy field</small></span>
-                <span class="f-eq">= <strong>Bandarawela</strong></span>
-              </div>
-              <div class="formula-row">
-                <span class="f-part f-x">Ratna <small>gem</small></span>
-                <span class="f-plus">+</span>
-                <span class="f-part f-y">pura <small>city</small></span>
-                <span class="f-eq">= <strong>Ratnapura</strong></span>
-              </div>
-              <div class="formula-row">
-                <span class="f-part f-x">Kal <small>stone</small></span>
-                <span class="f-plus">+</span>
-                <span class="f-part f-y">munai <small>cape</small></span>
-                <span class="f-eq">= <strong>Kalmunai</strong></span>
+              <div class="preset-pills" id="preset-pills">
+                <button class="preset-pill" data-a="wewa" data-b="kulam">-wewa vs -kulam</button>
+                <button class="preset-pill" data-a="wela" data-b="wella">-wela vs -wella</button>
+                <button class="preset-pill" data-a="gama" data-b="ur">-gama vs -ur</button>
+                <button class="preset-pill" data-a="uda" data-b="palle">uda- vs palle-</button>
+                <button class="preset-pill" data-a="rat" data-b="kalu">rat- vs kalu-</button>
               </div>
             </div>
+          </details>
+
+          <!-- Category Filter Chips -->
+          <div class="cat-filters" id="cat-filters">
+            <button class="cat-chip active" data-cat="all">All</button>
+            <button class="cat-chip" data-cat="featured">Featured</button>
+            <button class="cat-chip" data-cat="land">Fields &amp; Land</button>
+            <button class="cat-chip" data-cat="water">Water &amp; Tanks</button>
+            <button class="cat-chip" data-cat="hills">Rocks &amp; Hills</button>
+            <button class="cat-chip" data-cat="settlements">Settlements</button>
+            <button class="cat-chip" data-cat="colors">Colors &amp; Gems</button>
+            <button class="cat-chip" data-cat="nature">Size &amp; Trees</button>
           </div>
 
-          <div class="guide-card">
-            <h3>Why <code>rat-</code> Means Three Different Things</h3>
-            <p>When you see <strong>rat-</strong> or <strong>rath-</strong> at the start of a Sri Lankan town name, listen closely to the syllable after it:</p>
-            <ul class="guide-list">
-              <li><strong>රත් / රතු (Red / Crimson):</strong> Most common—especially <em>ratmal-</em> (red ixora flower) in <strong>Ratmalana</strong>, <strong>Ratmale</strong>, and <strong>Rathmalgoda</strong>, or <em>rathu-</em> in <strong>Rathupasketiya</strong> (red earth).</li>
-              <li><strong>රත්න (Gem / Jewel):</strong> Sanskrit <em>ratna</em>—heard in <strong>Ratnapura</strong> (“City of Gems”) and <strong>Rathna Ella</strong>.</li>
-              <li><strong>රටේ (Country / Royal District):</strong> Seen in dry-zone compounds like <strong>Rate Hinukwewa</strong>.</li>
-            </ul>
-          </div>
+          <!-- Roots List -->
+          <div class="roots-list" id="roots-list"></div>
+        </section>
 
-          <div class="guide-card">
-            <h3><code>-wela</code> vs <code>-wella</code></h3>
-            <p>A single extra letter shifts the landscape completely:</p>
-            <ul class="guide-list">
-              <li><strong>-wela (වෙල):</strong> Open paddy fields or valley meadows—inland across Badulla, Kurunegala, Kandy, and Matale (<em>Bandarawela, Galewela, Ambawela</em>).</li>
-              <li><strong>-wella (වැල්ල):</strong> Sandy beaches or riverbanks—hugging coasts and rivers (<em>Dikwella, Dalawella, Kudawella, Hanwella</em>).</li>
-            </ul>
+        <!-- TAB 2: PLACES DIRECTORY -->
+        <section class="panel" id="panel-places">
+          <div class="places-toolbar">
+            <select id="district-filter" class="select-compact" aria-label="Filter by district">
+              <option value="">All 25 Districts</option>
+            </select>
+            <select id="sort-places" class="select-compact" aria-label="Sort places">
+              <option value="notable">Notable first</option>
+              <option value="alpha">A → Z</option>
+              <option value="district">By District</option>
+              <option value="elev">Highest elevation</option>
+            </select>
           </div>
+          <div class="places-summary" id="places-summary"></div>
+          <div class="places-list" id="places-list"></div>
+        </section>
 
-          <div class="guide-card">
-            <h3>Sinhala &amp; Tamil Mirror Pairs</h3>
-            <p>Use <strong>Compare Mode</strong> to see how Sinhala and Tamil geographic words mirror one another across the island’s regions:</p>
-            <div class="mirror-grid">
-              <div><strong>Irrigation tank</strong></div><div>-wewa (වැව) ↔ -kulam (குளம்)</div>
-              <div><strong>Village / Town</strong></div><div>-gama (ගම) ↔ -ur (ஊர்)</div>
-              <div><strong>Port / Ford</strong></div><div>-tota (තොට) ↔ -turai (துறை)</div>
-              <div><strong>Island</strong></div><div>-duwa (දූව) ↔ -tivu (தீவு)</div>
-              <div><strong>Mountain</strong></div><div>-kanda (කන්ද) ↔ -malai (மலை)</div>
-              <div><strong>Large / Great</strong></div><div>maha- (මහා) ↔ periya- (பெரிய)</div>
+        <!-- TAB 3: HOW NAMES WORK / GUIDE -->
+        <section class="panel" id="panel-guide">
+          <div class="guide-content">
+            <div class="guide-card">
+              <h3>
+                The
+                <code>X + Y</code>
+                Compound Pattern
+              </h3>
+              <p>
+                Most indigenous Sinhala and Tamil place names in Sri Lanka follow a transparent two-part recipe: a
+                <strong>qualifier</strong>
+                (a tree, animal, color, size, or founder) joined to a
+                <strong>landform or settlement</strong>
+                .
+              </p>
+              <div class="formula-examples">
+                <div class="formula-row">
+                  <span class="f-part f-x">
+                    Weli
+                    <small>sand</small>
+                  </span>
+                  <span class="f-plus">+</span>
+                  <span class="f-part f-y">
+                    gama
+                    <small>village</small>
+                  </span>
+                  <span class="f-eq">
+                    =
+                    <strong>Weligama</strong>
+                  </span>
+                </div>
+                <div class="formula-row">
+                  <span class="f-part f-x">
+                    Bandara
+                    <small>chieftain</small>
+                  </span>
+                  <span class="f-plus">+</span>
+                  <span class="f-part f-y">
+                    wela
+                    <small>paddy field</small>
+                  </span>
+                  <span class="f-eq">
+                    =
+                    <strong>Bandarawela</strong>
+                  </span>
+                </div>
+                <div class="formula-row">
+                  <span class="f-part f-x">
+                    Ratna
+                    <small>gem</small>
+                  </span>
+                  <span class="f-plus">+</span>
+                  <span class="f-part f-y">
+                    pura
+                    <small>city</small>
+                  </span>
+                  <span class="f-eq">
+                    =
+                    <strong>Ratnapura</strong>
+                  </span>
+                </div>
+                <div class="formula-row">
+                  <span class="f-part f-x">
+                    Kal
+                    <small>stone</small>
+                  </span>
+                  <span class="f-plus">+</span>
+                  <span class="f-part f-y">
+                    munai
+                    <small>cape</small>
+                  </span>
+                  <span class="f-eq">
+                    =
+                    <strong>Kalmunai</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-card">
+              <h3>
+                Why
+                <code>rat-</code>
+                Means Three Different Things
+              </h3>
+              <p>
+                When you see
+                <strong>rat-</strong>
+                or
+                <strong>rath-</strong>
+                at the start of a Sri Lankan town name, listen closely to the syllable after it:
+              </p>
+              <ul class="guide-list">
+                <li>
+                  <strong>රත් / රතු (Red / Crimson):</strong>
+                  Most common—especially
+                  <em>ratmal-</em>
+                  (red ixora flower) in
+                  <strong>Ratmalana</strong>
+                  ,
+                  <strong>Ratmale</strong>
+                  , and
+                  <strong>Rathmalgoda</strong>
+                  , or
+                  <em>rathu-</em>
+                  in
+                  <strong>Rathupasketiya</strong>
+                  (red earth).
+                </li>
+                <li>
+                  <strong>රත්න (Gem / Jewel):</strong>
+                  Sanskrit
+                  <em>ratna</em>
+                  —heard in
+                  <strong>Ratnapura</strong>
+                  (“City of Gems”) and
+                  <strong>Rathna Ella</strong>
+                  .
+                </li>
+                <li>
+                  <strong>රටේ (Country / Royal District):</strong>
+                  Seen in dry-zone compounds like
+                  <strong>Rate Hinukwewa</strong>
+                  .
+                </li>
+              </ul>
+            </div>
+
+            <div class="guide-card">
+              <h3>
+                <code>-wela</code>
+                vs
+                <code>-wella</code>
+              </h3>
+              <p>A single extra letter shifts the landscape completely:</p>
+              <ul class="guide-list">
+                <li>
+                  <strong>-wela (වෙල):</strong>
+                  Open paddy fields or valley meadows—inland across Badulla, Kurunegala, Kandy, and Matale (
+                  <em>Bandarawela, Galewela, Ambawela</em>
+                  ).
+                </li>
+                <li>
+                  <strong>-wella (වැල්ල):</strong>
+                  Sandy beaches or riverbanks—hugging coasts and rivers (
+                  <em>Dikwella, Dalawella, Kudawella, Hanwella</em>
+                  ).
+                </li>
+              </ul>
+            </div>
+
+            <div class="guide-card">
+              <h3>Sinhala &amp; Tamil Mirror Pairs</h3>
+              <p>
+                Use
+                <strong>Compare Mode</strong>
+                to see how Sinhala and Tamil geographic words mirror one another across the island’s regions:
+              </p>
+              <div class="mirror-grid">
+                <div><strong>Irrigation tank</strong></div>
+                <div>-wewa (වැව) ↔ -kulam (குளம்)</div>
+                <div><strong>Village / Town</strong></div>
+                <div>-gama (ගම) ↔ -ur (ஊர்)</div>
+                <div><strong>Port / Ford</strong></div>
+                <div>-tota (තොට) ↔ -turai (துறை)</div>
+                <div><strong>Island</strong></div>
+                <div>-duwa (දූව) ↔ -tivu (தீவு)</div>
+                <div><strong>Mountain</strong></div>
+                <div>-kanda (කන්ද) ↔ -malai (மலை)</div>
+                <div><strong>Large / Great</strong></div>
+                <div>maha- (මහා) ↔ periya- (பெரிய)</div>
+              </div>
+            </div>
+
+            <div class="guide-card provenance-card">
+              <h3>Real Data, Zero Hallucinations</h3>
+              <p>
+                Every single town, village, coordinate, and elevation in this atlas is extracted directly from the official
+                <strong>GeoNames Sri Lanka Gazetteer</strong>
+                (
+                <code>LK.txt</code>
+                ), mapped onto
+                <strong>OpenStreetMap / geoBoundaries</strong>
+                25-district boundaries.
+              </p>
+              <p class="small-muted">84 landmark cities carry verified historical notes; all other 10,000+ villages display transparent structural component matches so folk tales are never fabricated.</p>
             </div>
           </div>
-
-          <div class="guide-card provenance-card">
-            <h3>Real Data, Zero Hallucinations</h3>
-            <p>Every single town, village, coordinate, and elevation in this atlas is extracted directly from the official <strong>GeoNames Sri Lanka Gazetteer</strong> (<code>LK.txt</code>), mapped onto <strong>OpenStreetMap / geoBoundaries</strong> 25-district boundaries.</p>
-            <p class="small-muted">84 landmark cities carry verified historical notes; all other 10,000+ villages display transparent structural component matches so folk tales are never fabricated.</p>
-          </div>
-        </div>
-      </section>
-    </aside>
-
-    <!-- Main Interactive Map Stage -->
-    <main class="map-stage" id="map-stage">
-      <canvas id="map-canvas"></canvas>
-
-      <!-- Floating Top-Left Active Layer HUD -->
-      <div class="map-hud-top">
-        <div class="active-banner" id="active-banner">
-          <!-- Populated dynamically -->
-        </div>
-
-        <div class="map-controls-bar">
-          <div class="segmented" id="viz-mode" role="group" aria-label="Map display mode">
-            <button class="seg-btn active" data-mode="points">Points</button>
-            <button class="seg-btn" data-mode="density">Districts</button>
-            <button class="seg-btn" data-mode="both">Both</button>
-          </div>
-          <label class="toggle-chip" title="Toggle district labels">
-            <input type="checkbox" id="chk-districts" checked />
-            <span>Districts</span>
-          </label>
-          <label class="toggle-chip" title="Toggle major city landmarks">
-            <input type="checkbox" id="chk-cities" checked />
-            <span>Cities</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Floating Zoom Controls (Top-Right) -->
-      <div class="map-zoom-controls">
-        <button id="zoom-in" class="zoom-btn" title="Zoom in" aria-label="Zoom in">+</button>
-        <button id="zoom-out" class="zoom-btn" title="Zoom out" aria-label="Zoom out">&minus;</button>
-        <button id="zoom-reset" class="zoom-btn" title="Reset view to Sri Lanka" aria-label="Reset view">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-        </button>
-      </div>
-
-      <!-- Hover Tooltip -->
-      <div id="map-tooltip" class="map-tooltip hidden"></div>
-
-      <!-- Floating Bottom-Right Inspector Drawer (Root Dossier OR Place Breakdown) -->
-      <aside class="inspector-card" id="inspector-card">
-        <button id="inspector-collapse" class="inspector-collapse" title="Collapse / expand details" aria-label="Toggle details">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div id="inspector-body" class="inspector-body">
-          <!-- Dynamically populated -->
-        </div>
+        </section>
       </aside>
 
-      <!-- Legend / Scale Footer (Bottom-Left) -->
-      <div class="map-footer-legend" id="map-legend">
-        <div class="legend-items" id="legend-items"></div>
-        <div class="scale-bar-wrap">
-          <div class="scale-bar" id="scale-bar"></div>
-          <span class="scale-label" id="scale-label">50 km</span>
-        </div>
-      </div>
-    </main>
-  </div>
+      <!-- Main Interactive Map Stage -->
+      <main class="map-stage" id="map-stage">
+        <canvas id="map-canvas"></canvas>
 
-  <script src="app.js"></script>
-</body>
+        <!-- Floating Top-Left Active Layer HUD -->
+        <div class="map-hud-top">
+          <div class="active-banner" id="active-banner">
+            <!-- Populated dynamically -->
+          </div>
+
+          <div class="map-controls-bar">
+            <div class="segmented" id="viz-mode" role="group" aria-label="Map display mode">
+              <button class="seg-btn active" data-mode="points">Points</button>
+              <button class="seg-btn" data-mode="density">Districts</button>
+              <button class="seg-btn" data-mode="both">Both</button>
+            </div>
+            <label class="toggle-chip" title="Toggle district labels">
+              <input type="checkbox" id="chk-districts" checked />
+              <span>Districts</span>
+            </label>
+            <label class="toggle-chip" title="Toggle major city landmarks">
+              <input type="checkbox" id="chk-cities" checked />
+              <span>Cities</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Floating Zoom Controls (Top-Right) -->
+        <div class="map-zoom-controls">
+          <button id="zoom-in" class="zoom-btn" title="Zoom in" aria-label="Zoom in">+</button>
+          <button id="zoom-out" class="zoom-btn" title="Zoom out" aria-label="Zoom out">&minus;</button>
+          <button id="zoom-reset" class="zoom-btn" title="Reset view to Sri Lanka" aria-label="Reset view">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Hover Tooltip -->
+        <div id="map-tooltip" class="map-tooltip hidden"></div>
+
+        <!-- Floating Bottom-Right Inspector Drawer (Root Dossier OR Place Breakdown) -->
+        <aside class="inspector-card" id="inspector-card">
+          <button id="inspector-collapse" class="inspector-collapse" title="Collapse / expand details" aria-label="Toggle details">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+          </button>
+          <div id="inspector-body" class="inspector-body">
+            <!-- Dynamically populated -->
+          </div>
+        </aside>
+
+        <!-- Legend / Scale Footer (Bottom-Left) -->
+        <div class="map-footer-legend" id="map-legend">
+          <div class="legend-items" id="legend-items"></div>
+          <div class="scale-bar-wrap">
+            <div class="scale-bar" id="scale-bar"></div>
+            <span class="scale-label" id="scale-label">50 km</span>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || (a.contentWindow && a.contentWindow.document);
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML = "window.__CF$cv$params={r:'a5e526ec4e62b2f9',t:'MTc5NTMyMTMzNQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5e526ec4e62b2f9',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener) document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState && ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>
